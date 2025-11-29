@@ -70,6 +70,7 @@ void Viewer::ViewControlsScreen() {
 
 
 
+
 void Viewer::ViewMaze() {
   // Draw exitpoint
   Sprites::drawOverwrite((X_SIZE * pt_game->get_game_model()->maze1.exitpoint.pos_x),(Y_SIZE * pt_game->get_game_model()->maze1.exitpoint.pos_y), endpoint_bitmap, 0);
