@@ -37,7 +37,6 @@ void GameClass::action(){
           if (pt_joystick->exec() == Controller::action::PRESS_A){
                 state = gamestate::GAME_STAGE;
                 gamemodel.InitGame();
-                pt_viewer->ViewMaze();
           } 
           pt_viewer->update();
         }
@@ -46,7 +45,7 @@ void GameClass::action(){
         {   
             
             state = gamestate::GAME_STAGE;
-            pt_viewer->ViewMaze();
+            gamemodel.player1.move_player(pt_joystick->exec(), &gamemodel.maze1);
             pt_viewer->update();
         }
         break;

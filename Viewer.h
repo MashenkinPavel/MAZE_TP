@@ -9,19 +9,19 @@ public:
           pt_game = game;
         }
         void ViewMaze();
+        void ViewPlayer();
         void update();
+        GameClass* pt_game;
 private:
-    GameClass* pt_game;
+
     void ViewStartScreen();
     void ViewIntroScreen();
     void ViewGameOver();
     void ViewControlsScreen();
 };
 
-void Viewer::ViewStartScreen();
-void Viewer::ViewControlsScreen();
-void Viewer::ViewGameOver();
-void Viewer::ViewIntroScreen();
+
+
 
 
 #endif

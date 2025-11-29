@@ -4,6 +4,8 @@
 #include "global.h"
 #include  <stdio.h>
 #include  <Stack.h>
+#include "Controller.h"
+
 
 class Maze{
     public:
@@ -23,11 +25,20 @@ class Maze{
         bool maze_wallsY[COLCOUNT][ROWCOUNT+1] {true};
 };
 
+class Player{
+    public:
+        int pos_X = START_POS_X;
+        int pos_Y = START_POS_Y;
+        void move_player(Controller::action act, Maze *pmaze);
+};
+
 class MAZE_GAME{
 public:
     void InitGame();
     Maze maze1;
+    Player player1;
 private:
+
 };
 
 struct Cell{
