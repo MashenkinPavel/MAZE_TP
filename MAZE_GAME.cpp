@@ -1,43 +1,28 @@
 #include "global.h"
 #include  <stdio.h>
 #include  <Stack.h>
+#include "MAZE_GAME.h"
+#include <stdio.h>
 
-void initializeMaze();
-
-namespace{
-    const int MAX_STACK_SIZE = 100; //for max elems 7*14      
-} 
-
-class Maze{
-    public:
-        bool IsWallX(int nx, int ny, int dir){   //dir == 1  right wall    dir == -1   left wall
-            if (dir == 1 ) return maze_wallsX[ nx +1 ][ny];
-            if (dir == -1) return maze_wallsX[ nx ][ny];
-            //error if (dir !=+-1)
-            if (dir == 0 ) printf("Maze error   IsWallX incorrect usage! \n");   
-        }
-        bool IsWallY(int nx, int ny, int dir){   //dir == 1  dwon wall    dir == -1   up wall
-            if (dir == 1 ) return maze_wallsY[ nx ][ny + 1];
-            if (dir == -1) return maze_wallsY[ nx ][ny];
-            //error if (dir !=+-1)
-            if (dir == 0 ) printf("Maze error   IsWallY incorrect usage! \n");   
-        }
-    private:
-        void generateMaze(int startX, int startY);
-        bool isValidCell(int X, int Y);
-        bool maze_wallsX[COLCOUNT+1][ROWCOUNT] {true};
-        bool maze_wallsY[COLCOUNT][ROWCOUNT+1] {true};
-};
-
-struct Cell{
-         int x = -1;
-         int y = -1;
-};
   
 bool Maze::isValidCell(int x, int y) {
-    if ((x<0) || (x>COLCOUNT) ) return false;
-    if ((y<0) || (y>ROWCOUNT) ) return false;
+    if ((x<0) || (x>=COLCOUNT) ) return false;
+    if ((y<0) || (y>=ROWCOUNT) ) return false;
     return true;
+}
+
+void Maze::init(){
+        for (int i=0;i<=COLCOUNT;i++){
+            for (int j = 0;j<ROWCOUNT;j++){
+                maze_wallsX[i][j] = true;
+            }
+        }
+
+        for (int i=0;i<COLCOUNT;i++){
+            for (int j = 0;j<=ROWCOUNT;j++){
+                maze_wallsY[i][j] = true;
+            }
+        }
 }
 
 void Maze::generateMaze(int startX, int startY )
@@ -49,9 +34,9 @@ void Maze::generateMaze(int startX, int startY )
     Cell loccell ;loccell.x = startX;  loccell.y = startY;
     localstack.push(loccell);
     visited[startY][startX] = true;
-    while ( localstack.length()!=0 ){
+    while ( localstack.length()>0 ){
         Cell current = localstack.pop();
-        int availableDirs[4];
+        int availableDirs[4]{-1,-1, -1, -1 };
         int count = 0;
         for (int dir = 0; dir < 4; dir++) {
             int nx = current.x + direction_x[dir];
@@ -73,17 +58,21 @@ void Maze::generateMaze(int startX, int startY )
             int wallX = current.x * 2 + 1 + direction_x[dir];
             int wallY = current.y * 2 + 1 + direction_y[dir];
 
-            if (direction_y[dir] ==0){ // x-oriented faces
+            if ( direction_y[dir] == 0){ // Nx normal-oriented faces
                 int Xface_number = -1;
                 if (direction_x[dir] == -1) Xface_number = current.x;
                 if (direction_x[dir] == 1) Xface_number = current.x + 1;
                 maze_wallsX[Xface_number][ny] = false;
             }
 
-            if (direction_x[dir] == 0){ //y-oriented fases
+            if (  direction_x[dir] ==0){ //Ny normal-oriented fases
                 int Yface_number =-1;
-                if (direction_y[dir] == -1) Yface_number = current.y;
-                if (direction_x[dir] == 1) Yface_number = current.y + 1;
+                if (direction_y[dir] == -1){
+                    Yface_number = current.y;
+                } 
+                if (direction_y[dir] == 1){
+                    Yface_number = current.y + 1;
+                } 
                 maze_wallsY[current.x][Yface_number] = false;
             }
 
@@ -93,11 +82,12 @@ void Maze::generateMaze(int startX, int startY )
             localstack.push(newcell);
           }
     }
+}
 
-
-
-
-
-
+void MAZE_GAME::InitGame(){
+    //init maze1
+    maze1.init();
+    maze1.generateMaze(0,0);
 
 }
+

@@ -30,11 +30,32 @@ void GameClass::action(){
               state = gamestate::INTRO_STAGE;
               pt_viewer->update();
           }
-
         }
         break;
-
-
+        case gamestate::CONTROLLER_STAGE:
+        {
+          if (pt_joystick->exec() == Controller::action::PRESS_A){
+                state = gamestate::GAME_STAGE;
+                gamemodel.InitGame();
+                pt_viewer->ViewMaze();
+          } 
+          pt_viewer->update();
+        }
+        break;
+        case gamestate::GAME_STAGE:
+        {   
+            
+            state = gamestate::GAME_STAGE;
+            pt_viewer->ViewMaze();
+            pt_viewer->update();
+        }
+        break;
+        case gamestate::END_STAGE:
+        {
+            
+            pt_viewer->update();
+        }
+        break;
     }
 
 }

@@ -3,6 +3,7 @@
 class Viewer;
 #include "Controller.h"
 #include "Viewer.h"
+#include "MAZE_GAME.h"
 
 class GameClass{
 public:
@@ -15,9 +16,16 @@ public:
     } state;
     void action();
     void init(Controller* joystick);
+    void addViewer(Viewer* pt_monitor){
+        pt_viewer = pt_monitor;
+    }
+    MAZE_GAME* get_game_model(){
+        return &gamemodel;
+    }
 private:
     Controller* pt_joystick;
     Viewer * pt_viewer; 
+    MAZE_GAME gamemodel;
     int step = 0;
 };
 

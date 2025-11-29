@@ -8,6 +8,7 @@ public:
         void init(GameClass* game){
           pt_game = game;
         }
+        void ViewMaze();
         void update();
 private:
     GameClass* pt_game;
