@@ -1,7 +1,7 @@
 #include <Arduino.h>
 #include "bmp.h"
 
-#include "bmp/zastavka.h"
+#include "zastavka.h"
 
-#include "bmp/instruction_screen.h"
+#include "instruction_screen.h"
 
