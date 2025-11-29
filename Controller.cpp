@@ -8,12 +8,6 @@ void Controller::init(){
 }
 
 void Controller::get_action(){
-    // if (arduboy.pressed(RIGHT_BUTTON))  button = action::PRESS_RIGHT;
-    // else if (arduboy.pressed(LEFT_BUTTON))  button = action::PRESS_LEFT;
-    // else if (arduboy.pressed(UP_BUTTON))  button = action::PRESS_UP;
-    // else if (arduboy.pressed(DOWN_BUTTON))  button = action::PRESS_DOWN;
-    // else if (arduboy.pressed(A_BUTTON))  button = action::PRESS_A;
-    // else if (arduboy.pressed(B_BUTTON))  button = action::PRESS_B;
 
     if (arduboy.justPressed(RIGHT_BUTTON))  button = action::PRESS_RIGHT;
     else if (arduboy.justPressed(LEFT_BUTTON))  button = action::PRESS_LEFT;

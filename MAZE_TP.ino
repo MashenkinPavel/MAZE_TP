@@ -34,14 +34,6 @@ void loop() {
   
     
 
-    //  if (game.state == GameClass::gamestate::START_STAGE)   arduboy.print("START_STAGE");
-    //  if (game.state == GameClass::gamestate::INTRO_STAGE)   arduboy.print("INTRO_STAGE");
-    //  if (game.state == GameClass::gamestate::CONTROLLER_STAGE)   arduboy.print("CONTROLLER_STAGE");
-    //  if (game.state == GameClass::gamestate::GAME_STAGE)   arduboy.print("GAME_STAGE");
-    //  if (game.state == GameClass::gamestate::END_STAGE)   arduboy.print("END_STAGE");
-    //  arduboy.display();    
-    //  waitForButtonPress();
-
     arduboy.clear();
     arduboy.pollButtons();
     joystick.get_action();

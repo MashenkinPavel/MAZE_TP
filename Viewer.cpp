@@ -1,7 +1,10 @@
 #include <Arduboy2.h>
 #include "Viewer.h"
 #include "game_info.h"
-#include "MAZE_GAME.h" 
+#include "MAZE_GAME.h"
+#include "zastavka.h"
+#include "instruction_screen.h"
+#include "simple_gameover.h" 
 
 
 extern Arduboy2 arduboy;
@@ -22,7 +25,7 @@ void Viewer::update(){
         break;
         case GameClass::gamestate::CONTROLLER_STAGE:
         {
-            arduboy.print("VIEW TODO CNTRcases\n");
+            ViewControlsScreen();
         }
         break;
         case GameClass::gamestate::GAME_STAGE:
@@ -33,6 +36,7 @@ void Viewer::update(){
         case GameClass::gamestate::END_STAGE:
         {
             //arduboy.print("VIEW TODO ENDcases\n");
+            ViewGameOver();
         }
         break;
         default:
@@ -44,16 +48,18 @@ void Viewer::update(){
 
 
 void Viewer::ViewStartScreen(){
-      char text[] = "aMAZEing GAME\n by PixelForge\n";
-      arduboy.print(text);
+ Sprites::drawOverwrite(0, 0, zastavka_bitmap, 0);
+
 }
-
-
 
 void Viewer::ViewIntroScreen(){
-      char text[] = "A long time ago..."; 
-      arduboy.print(text);
+    arduboy.print("Intro");
 }
+
+void Viewer::ViewControlsScreen(){
+  Sprites::drawOverwrite(0, 0, instruction_screen_bitmap, 0);
+}
+
 
 
 void Viewer::ViewMaze(){
@@ -85,3 +91,11 @@ void Viewer::ViewMaze(){
         }
     }
 }
+
+void Viewer::ViewGameOver(){
+    Sprites::drawOverwrite(0, 0, zastavka_bitmap, 0);
+}
+
+
+ 
+

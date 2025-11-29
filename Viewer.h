@@ -14,8 +14,14 @@ private:
     GameClass* pt_game;
     void ViewStartScreen();
     void ViewIntroScreen();
+    void ViewGameOver();
+    void ViewControlsScreen();
 };
 
+void Viewer::ViewStartScreen();
+void Viewer::ViewControlsScreen();
+void Viewer::ViewGameOver();
+void Viewer::ViewIntroScreen();
 
 
 #endif
