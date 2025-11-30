@@ -1,11 +1,11 @@
 #include "global.h"
-#include <stdio.h>
 #include <Stack.h>
 #include "MAZE_GAME.h"
 #include <stdio.h>
 #include <Arduboy2.h>
 
 extern Arduboy2 arduboy;
+
 
 bool Maze::isValidCell(int x, int y) {
   if ((x < 0) || (x >= COLCOUNT)) return false;
@@ -17,12 +17,15 @@ void Maze::init() {
   for (int i = 0; i <= COLCOUNT; i++) {
     for (int j = 0; j < ROWCOUNT; j++) {
       maze_wallsX[i][j] = true;
+      
     }
   }
 
   for (int i = 0; i < COLCOUNT; i++) {
     for (int j = 0; j <= ROWCOUNT; j++) {
       maze_wallsY[i][j] = true;
+      
+
     }
   }
 }
@@ -47,6 +50,33 @@ void Player::move_player(Controller::action act, Maze *pmaze) {
         break;
     }
 }
+
+
+void Player::changefloor(int newfloor, MAZE_GAME* p_mzgame){
+  if (floor == newfloor ) return;
+  else if (newfloor == 0){
+    floor = newfloor;
+    p_mzgame->maze1 = &(p_mzgame->down_maze);
+  }
+  else if (newfloor == 1){
+    floor = newfloor;
+    p_mzgame->maze1 = &(p_mzgame->up_maze);
+  }
+}
+
+void Maze::addWallYSlice(int facecolumn ){   //vertical   |
+    for (int row = 0; row < ROWCOUNT;row++){
+        //maze_wallsX[facecolumn][row] = true;
+        maze_wallsX[facecolumn][row] = true;
+    }  
+}
+void Maze::addWallXSlice(int facerow){      //horisontal slice -----
+    for (int col = 0; col< COLCOUNT;col++){
+        //maze_wallsY[col][facerow] = true;
+        maze_wallsY[col][facerow] = true;
+    } 
+}
+
 
 void Maze::generateMaze(int startX, int startY) {
   bool visited[ROWCOUNT][COLCOUNT]{ false };  // i j   - - columns
@@ -115,8 +145,26 @@ void MAZE_GAME::InitGame() {
   //init maze1
   // start timer
   start_time = millis();
-  maze1.init();
-  maze1.generateMaze(0, 0);
+  down_maze.init();
+  up_maze.init();
+  
+  int X = random(100) % COLCOUNT;
+  int Y = random(100) % ROWCOUNT;
+  down_maze.generateMaze(X, Y);
+
+  X = random(100) % COLCOUNT;
+  Y = random(100) % ROWCOUNT;
+  
+  up_maze.generateMaze(X, Y);
+  
+  if (wall_difficult == 1){
+    //нижний этаж разделим вертикальной линией
+    int ypos_ind =  COLCOUNT/2;
+    int xpos_ind =  ROWCOUNT/2;
+    down_maze.addWallYSlice(ypos_ind);
+    up_maze.addWallXSlice(xpos_ind);
+  }
+  maze1 = &down_maze;
   player1.pos_X = START_POS_X;
   player1.pos_Y = START_POS_Y;
 }

@@ -46,10 +46,14 @@ void GameClass::action(){
         case gamestate::GAME_STAGE:
         {    
             state = gamestate::GAME_STAGE;
-            gamemodel.player1.move_player(pt_joystick->exec(), &gamemodel.maze1);
-            if (gamemodel.player1.pos_X == gamemodel.maze1.exitpoint.pos_x && gamemodel.player1.pos_Y == gamemodel.maze1.exitpoint.pos_y)
+            gamemodel.player1.move_player(pt_joystick->exec(), gamemodel.maze1);
+            if (gamemodel.player1.pos_X == gamemodel.maze1->exitpoint.pos_x && gamemodel.player1.pos_Y == gamemodel.maze1->exitpoint.pos_y)
                 if(Controller::action::PRESS_A == pt_joystick->exec()) state = gamestate::END_STAGE;
-            
+            if(Controller::action::PRESS_B == pt_joystick->exec()){
+                if(gamemodel.player1.floor == 0 ) 
+                gamemodel.player1.changefloor(1,&gamemodel);
+                else gamemodel.player1.changefloor(0,&gamemodel);
+            }
             pt_viewer->update();
             
         }

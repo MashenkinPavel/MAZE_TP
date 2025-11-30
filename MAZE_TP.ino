@@ -9,7 +9,7 @@ Arduboy2 arduboy;
 GameClass game;
 Controller joystick;
 Viewer monitor;
-
+   //0 - without additional walls on levels
 
 //int loopstep = 0;
 void create_maze(int cols, int rows);
@@ -22,12 +22,7 @@ void setup() {
     game.init(&joystick);
     monitor.init(&game);
     game.addViewer(&monitor);
-    
-    
-
-    //arduboy.print("setup done\n");
-    //arduboy.display();
-    //waitForButtonPress();
+    arduboy.generateRandomSeed();
 }
 
 void loop() {
@@ -35,8 +30,6 @@ void loop() {
     if (!(arduboy.nextFrame()))
     return;
   
-    
-
     arduboy.clear();
     arduboy.pollButtons();
     joystick.get_action();

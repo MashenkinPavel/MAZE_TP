@@ -34,6 +34,13 @@ void Viewer::update() {
       break;
     case GameClass::gamestate::GAME_STAGE:
       {
+        int16_t pos_X = (COLCOUNT+1)* X_SIZE;
+        int16_t pos_Y = 1* Y_SIZE;
+        int L = pt_game->get_game_model()->player1.floor;
+        arduboy.setCursor(pos_X, pos_Y);
+        arduboy.print("L");
+        arduboy.setCursor(pos_X, pos_Y + Y_SIZE);
+        arduboy.print(L);
         //arduboy.print("VIEW TODO GAMEcases\n");
         ViewMaze();
         ViewPlayer();
@@ -76,11 +83,11 @@ void Viewer::ViewControlsScreen() {
 
 void Viewer::ViewMaze() {
   // Draw exitpoint
-  Sprites::drawOverwrite((X_SIZE * pt_game->get_game_model()->maze1.exitpoint.pos_x),(Y_SIZE * pt_game->get_game_model()->maze1.exitpoint.pos_y), endpoint_bitmap, 0);
+  Sprites::drawOverwrite((X_SIZE * pt_game->get_game_model()->maze1->exitpoint.pos_x),(Y_SIZE * pt_game->get_game_model()->maze1->exitpoint.pos_y), endpoint_bitmap, 0);
   //Xface oriented draw   вертикальные
   for (int xFace = 0; xFace <= COLCOUNT; xFace++) {
     for (int row = 0; row < ROWCOUNT; row++) {
-      if (pt_game->get_game_model()->maze1.IsWallX(xFace, row)) {
+      if (pt_game->get_game_model()->maze1->IsWallX(xFace, row)) {
         //draw X oriented face
         int Xstart = xFace * X_SIZE;
         int Xend = xFace * X_SIZE;
@@ -94,7 +101,7 @@ void Viewer::ViewMaze() {
   //Yface oriented draw   горизонтальные
   for (int col = 0; col < COLCOUNT; col++) {
     for (int row = 0; row <= ROWCOUNT; row++) {
-      if (pt_game->get_game_model()->maze1.IsWallY(col, row)) {
+      if (pt_game->get_game_model()->maze1->IsWallY(col, row)) {
         //draw  Y oriented face
         int Xstart = col * X_SIZE;
         int Xend = col * X_SIZE + X_SIZE;
