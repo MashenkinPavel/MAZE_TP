@@ -165,6 +165,9 @@ void MAZE_GAME::InitGame() {
     up_maze.addWallXSlice(xpos_ind);
   }
   maze1 = &down_maze;
+ 
+  
+  
   player1.pos_X = START_POS_X;
   player1.pos_Y = START_POS_Y;
 }

@@ -10,6 +10,7 @@ public:
         }
         void ViewMaze();
         void ViewPlayer();
+        void ViewTimer();
         void update();
         GameClass* pt_game;
 private:

@@ -4,11 +4,13 @@
 #include "Viewer.h"
 #include "game_info.h"
 #include "MAZE_GAME.h"
-#include "zastavka.h"
-#include "instruction_screen.h"
-#include "simple_gameover.h"
-#include "player.h"
-#include "endpoint.h"
+#include "bmp.h"
+// #include "zastavka.h"
+// #include "instruction_screen.h"
+// #include "simple_gameover.h"
+// #include "player.h"
+// #include "endpoint.h"
+//#include "intro_text.h"
 
 
 extern Arduboy2 arduboy;
@@ -44,6 +46,7 @@ void Viewer::update() {
         //arduboy.print("VIEW TODO GAMEcases\n");
         ViewMaze();
         ViewPlayer();
+        ViewTimer();
       }
       break;
     case GameClass::gamestate::END_STAGE:
@@ -58,10 +61,14 @@ void Viewer::update() {
       }
   }
 }
+void Viewer::ViewTimer() {
+  arduboy.setCursor(TIMER_POS_X, TIMER_POS_Y);
+  arduboy.print((int)(millis()  * 0.001));
+}
 
 void Viewer::ViewPlayer() {
-  Sprites::drawOverwrite((X_SIZE * pt_game->get_game_model()->player1.pos_X),
-   (Y_SIZE * pt_game->get_game_model()->player1.pos_Y), player_bitmap, 0);
+  Sprites::drawSelfMasked((1 + X_SIZE * pt_game->get_game_model()->player1.pos_X),
+                          (1 + Y_SIZE * pt_game->get_game_model()->player1.pos_Y), player_bitmap, 0);
 }
 
 void Viewer::ViewStartScreen() {
@@ -69,21 +76,18 @@ void Viewer::ViewStartScreen() {
 }
 
 void Viewer::ViewIntroScreen() {
-  arduboy.print("intro");
-  // arduboy.setCursor(42, 18);
-  // arduboy.println((int)(millis() * 0.001));
+  Sprites::drawOverwrite(0, 0, introText, 0);
 }
 
 void Viewer::ViewControlsScreen() {
   Sprites::drawOverwrite(0, 0, instruction_screen_bitmap, 0);
 }
 
-
-
-
 void Viewer::ViewMaze() {
   // Draw exitpoint
-  Sprites::drawOverwrite((X_SIZE * pt_game->get_game_model()->maze1->exitpoint.pos_x),(Y_SIZE * pt_game->get_game_model()->maze1->exitpoint.pos_y), endpoint_bitmap, 0);
+  //Sprites::drawOverwrite((X_SIZE * pt_game->get_game_model()->maze1->exitpoint.pos_x),(Y_SIZE * pt_game->get_game_model()->maze1->exitpoint.pos_y), endpoint_bitmap, 0);
+  // Draw Maze Exitpoint
+  Sprites::drawSelfMasked((X_SIZE * pt_game->get_game_model()->maze1->exitpoint.pos_x), (Y_SIZE * pt_game->get_game_model()->maze1->exitpoint.pos_y), endpoint_bitmap, 0);
   //Xface oriented draw   вертикальные
   for (int xFace = 0; xFace <= COLCOUNT; xFace++) {
     for (int row = 0; row < ROWCOUNT; row++) {

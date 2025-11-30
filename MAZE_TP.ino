@@ -3,26 +3,34 @@
 #include "game_info.h"
 #include "Controller.h"
 #include "Viewer.h"
+#include "Sounds.h"
 
 //ArduboyTinyFont tinyfont = ArduboyTinyFont(arduboy.sBuffer);
 Arduboy2 arduboy;
 GameClass game;
 Controller joystick;
 Viewer monitor;
-   //0 - without additional walls on levels
+SoundManager audioFX;
+long unsigned int startTime;
 
 //int loopstep = 0;
 void create_maze(int cols, int rows);
 
 void setup() {
     arduboy.begin();
+    startTime = millis();     // milliseconds at start
     arduboy.setFrameRate(60);
     arduboy.clear(); // Очистка экрана
     joystick.init();
-    game.init(&joystick);
+    audioFX.init(&arduboy);
+    game.init(&joystick, &audioFX);
     monitor.init(&game);
     game.addViewer(&monitor);
     arduboy.generateRandomSeed();
+
+    //arduboy.print("setup done\n");
+    //arduboy.display();
+    //waitForButtonPress();
 }
 
 void loop() {
