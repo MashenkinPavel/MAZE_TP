@@ -11,13 +11,12 @@ GameClass game;
 Controller joystick;
 Viewer monitor;
 SoundManager audioFX;
-
-
 //int loopstep = 0;
-void create_maze(int cols, int rows);
 
+void create_maze(int cols, int rows);
 void setup() {
     arduboy.begin();
+
     arduboy.setFrameRate(60);
     arduboy.clear(); // Очистка экрана
     joystick.init();

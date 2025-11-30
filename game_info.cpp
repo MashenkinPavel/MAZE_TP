@@ -16,7 +16,6 @@ void GameClass::action(){
     switch (state){
         case gamestate::START_STAGE:
         {
-            
             if (pt_joystick->exec() == Controller::action::PRESS_A){
                 state = gamestate::INTRO_STAGE;
                 pt_viewer->update();
@@ -65,6 +64,7 @@ void GameClass::action(){
         break;
         case gamestate::END_STAGE:
         { 
+            
             pt_viewer->update();
             if (Controller::action::PRESS_B == pt_joystick->exec()) {
                  gamemodel.InitGame();  

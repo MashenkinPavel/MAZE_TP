@@ -16,7 +16,7 @@ public:
         END_STAGE
     } state;
     void action();
-    void init(Controller* joystick, SoundManager *pt_audio);
+    void init(Controller* joystick, SoundManager *audio);
     void addViewer(Viewer* pt_monitor){
         pt_viewer = pt_monitor;
     }
