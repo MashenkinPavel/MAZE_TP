@@ -60,8 +60,8 @@ void Viewer::update() {
 }
 
 void Viewer::ViewPlayer() {
-  Sprites::drawOverwrite((X_SIZE * pt_game->get_game_model()->player1.pos_X),
-   (Y_SIZE * pt_game->get_game_model()->player1.pos_Y), player_bitmap, 0);
+  Sprites::drawSelfMasked((1+X_SIZE * pt_game->get_game_model()->player1.pos_X),
+   (1+Y_SIZE * pt_game->get_game_model()->player1.pos_Y), player_bitmap, 0);
 }
 
 void Viewer::ViewStartScreen() {
@@ -82,8 +82,8 @@ void Viewer::ViewControlsScreen() {
 
 
 void Viewer::ViewMaze() {
-  // Draw exitpoint
-  Sprites::drawOverwrite((X_SIZE * pt_game->get_game_model()->maze1->exitpoint.pos_x),(Y_SIZE * pt_game->get_game_model()->maze1->exitpoint.pos_y), endpoint_bitmap, 0);
+  // Draw Maze Exitpoint
+  Sprites::drawSelfMasked((X_SIZE * pt_game->get_game_model()->maze1.exitpoint.pos_x),(Y_SIZE * pt_game->get_game_model()->maze1.exitpoint.pos_y), endpoint_bitmap, 0);
   //Xface oriented draw   вертикальные
   for (int xFace = 0; xFace <= COLCOUNT; xFace++) {
     for (int row = 0; row < ROWCOUNT; row++) {

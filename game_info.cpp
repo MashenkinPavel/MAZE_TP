@@ -2,9 +2,12 @@
 #include "Arduboy2Core.h"
 #include "game_info.h"
 #include "Controller.h"
+#include "Sounds.h"
 
-void GameClass::init(Controller* joystick){
+
+void GameClass::init(Controller* joystick, SoundManager *audio){
     pt_joystick = joystick;
+    pt_audio = audio;
     state = gamestate::START_STAGE;
 }
 
@@ -13,9 +16,11 @@ void GameClass::action(){
     switch (state){
         case gamestate::START_STAGE:
         {
+            
             if (pt_joystick->exec() == Controller::action::PRESS_A){
                 state = gamestate::INTRO_STAGE;
                 pt_viewer->update();
+                //pt_audio->playTitleMusic();
             }
             else {
               state = gamestate::START_STAGE;

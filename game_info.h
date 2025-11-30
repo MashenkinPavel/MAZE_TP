@@ -4,6 +4,7 @@ class Viewer;
 #include "Controller.h"
 #include "Viewer.h"
 #include "MAZE_GAME.h"
+#include "Sounds.h"
 
 class GameClass{
 public:
@@ -15,7 +16,7 @@ public:
         END_STAGE
     } state;
     void action();
-    void init(Controller* joystick);
+    void init(Controller* joystick, SoundManager *pt_audio);
     void addViewer(Viewer* pt_monitor){
         pt_viewer = pt_monitor;
     }
@@ -23,6 +24,7 @@ public:
         return &gamemodel;
     }
 private:
+    SoundManager *pt_audio;
     Controller* pt_joystick;
     Viewer * pt_viewer; 
     MAZE_GAME gamemodel;
