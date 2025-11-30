@@ -45,8 +45,17 @@ public:
     
     Maze*   maze1;   //current maze
     Player player1;
-    uint32_t start_time=0;
+    uint32_t start_time = 0;
+    uint32_t time_for_level = 30; //sec
+    
     int floor = 1; //этаж 
+    int level_round = 1;
+    uint32_t get_remain_sec()
+    {
+        uint32_t rez = time_for_level -  (int)( ( millis() - start_time )  * 0.001 );
+        if (rez < 0) rez = 0;
+        return rez;
+    }
 
 private:
 

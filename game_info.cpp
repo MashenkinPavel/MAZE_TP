@@ -61,7 +61,11 @@ void GameClass::action(){
             if (gamemodel.player1.pos_X == gamemodel.maze1->exitpoint.pos_x && gamemodel.player1.pos_Y == gamemodel.maze1->exitpoint.pos_y)
                 if(Controller::action::PRESS_A == pt_joystick->exec()){
                     pt_audio->playExitReached(); // Звук достижения выхода #MAX
-                     state = gamestate::END_STAGE;
+                     //state = gamestate::END_STAGE;
+                    gamemodel.InitGame();  
+                    gamemodel.level_round++;
+                    gamemodel.time_for_level *= 0.9;
+                    state = gamestate::GAME_STAGE;
                 }
             if(Controller::action::PRESS_B == pt_joystick->exec()){
                 pt_audio->playTeleportSound(); // Звук телепортации #MAX
@@ -69,8 +73,11 @@ void GameClass::action(){
                 gamemodel.player1.changefloor(1,&gamemodel);
                 else gamemodel.player1.changefloor(0,&gamemodel);
             }
-
             pt_viewer->update();
+            
+            if (gamemodel.get_remain_sec()<=0){
+                state = gamestate::END_STAGE;
+            }
             
         }
         break;

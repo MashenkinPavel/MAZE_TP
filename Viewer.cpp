@@ -58,7 +58,7 @@ void Viewer::update() {
 }
 void Viewer::ViewTimer() {
   arduboy.setCursor(TIMER_POS_X, TIMER_POS_Y);
-  arduboy.print((int)(millis()  * 0.001));
+  arduboy.print( pt_game->get_game_model()->get_remain_sec() ) ;
 }
 
 void Viewer::ViewPlayer() {
