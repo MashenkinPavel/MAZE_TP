@@ -15,6 +15,8 @@ Viewer monitor;
 SoundManager game_sounds_manager;
 //ArduboyTones sound(arduboy.audio.enabled);
 ArduboyPlaytune tunes(arduboy.audio.enabled);
+uint8_t count_frames = 0;
+uint8_t currentFrame = 0;
 
 //int loopstep = 0;
 

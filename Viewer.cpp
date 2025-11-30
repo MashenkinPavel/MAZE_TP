@@ -5,16 +5,11 @@
 #include "game_info.h"
 #include "MAZE_GAME.h"
 #include "bmp.h"
-// #include "zastavka.h"
-// #include "instruction_screen.h"
-// #include "simple_gameover.h"
-// #include "player.h"
-// #include "endpoint.h"
-//#include "intro_text.h"
 
 
 extern Arduboy2 arduboy;
-
+extern uint8_t currentFrame;
+extern uint8_t count_frames;
 
 
 void Viewer::update() {
@@ -80,12 +75,21 @@ void Viewer::ViewIntroScreen() {
 }
 
 void Viewer::ViewControlsScreen() {
-  Sprites::drawOverwrite(0, 0, instruction_screen_bitmap, 0);
+  Sprites::drawOverwrite(0, 0, instruction, 0);
 }
 
 void Viewer::ViewMaze() {
   // Draw Maze Exitpoint
-  Sprites::drawSelfMasked((X_SIZE * pt_game->get_game_model()->maze1->exitpoint.pos_x),(Y_SIZE * pt_game->get_game_model()->maze1->exitpoint.pos_y), endpoint_bitmap, 0);
+
+  Sprites::drawOverwrite((X_SIZE * pt_game->get_game_model()->maze1->exitpoint.pos_x),(Y_SIZE * pt_game->get_game_model()->maze1->exitpoint.pos_y), endpoint, currentFrame);
+  ++count_frames;
+  if (count_frames >= 10) {
+    count_frames = 0;
+    currentFrame++;
+    if(currentFrame > 2) {
+      currentFrame = 0;
+    }
+  }
   //Xface oriented draw   вертикальные
   for (int xFace = 0; xFace <= COLCOUNT; xFace++) {
     for (int row = 0; row < ROWCOUNT; row++) {
